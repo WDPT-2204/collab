@@ -89,8 +89,8 @@ ___
 - Generar un nuevo proyecto en el apartado de Github *Projects > Classic*
 - Crear algunas tareas y convertiras a issues
 - Asignar etiquetas (routes, views, style) a las tareas y asignar miembros del equipo a las tareas
-- Moved una de las tareas **cada uno** a la columna In progress
-- Hacer cambios en los archivos y probad de hacer commits que cierren las tareas de forma automática:
+- Moved una de las tareas **cada uno** a la columna *In progress*
+- Hacer cambios en los archivos y probad de hacer commits que cierren las tareas de forma automática. Debéis hacer mínimo 4 tareas: 2 sin conflictos y 2 con conflictos.
 ```bash
 git status
 git add .
