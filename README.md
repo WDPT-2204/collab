@@ -43,7 +43,7 @@ ___
 
 **A) Cuando voy a empezar una nueva tarea**
 1. Cuando voy a iniciar una nueva tarea, me voy a la rama dev (<code>git checkout dev</code>) y hago un <code>git pull origin dev</code> para sincronizar mi rama local de dev con lo que haya podido subir mi compañer@ a github
-2. Creo una rama con <code>git checkout -b branch-name</code> con el nombre del feature que voy a hacer, y lo marco en el kanban como "Doing". Una rama también puede ser un bug
+2. Creo una rama con <code>git checkout -b branch-name</code> con el nombre del feature que voy a hacer, y muevo la targeta en el kanban como "In progress". Una rama también puede ser un bug
 ```bash
 git checkout dev
 git pull origin dev
@@ -56,7 +56,7 @@ Cuando acabo la tarea de esa rama, la guardo y después me llevo los cambios a d
 ```bash
 git status
 git add .
-git commit -m "Closes#number descripción de qué hace la tarea"
+git commit -m "Closed #number nombre tarea"
 git push origin branch-name  # si quiero subir la rama a github para tener la copia ahí, este paso es opcional
 git checkout dev  # me voy a la rama compartida
 git pull origin dev # vuelvo a comprobar si mi compañer@ ha hecho cambios mientras yo trabajaba
@@ -66,18 +66,46 @@ git push origin dev # subo los cambios a github para que se los pueda descargar 
 ```
 ___
 ## 🎬 Practise time!
-### Iteration one
+### Iteration 1: me, myself and I
 
 - Miembro 1 del equipo debe forkear y clonar el repositorio. En Github, debe dar permisos al otro miembro para editar el repositorio (*Repo > Settings > Collaborators and teams*)
-- El otro miembro (Miembro 2), se clona el repo **desde la cuenta de Github del compañero (no hacer dos forks)**.
+- El otro miembro (Miembro 2), clona el repo **desde la cuenta de Github del compañero (no hacer dos forks)**.
 - Miembro 1 crea una rama *dev*: <code>git checkout -b dev</code>
-- Hacer una función en el archivo index.js, comitearlos en la rama dev y subir la rama *dev* a remoto (Github).
+- Miembro 1 hace una función cualquiera en el archivo index.js, los comitea en la rama dev y después sube los cambios la rama *dev* en remoto (Github): <code>git push origin dev</code>
 
-### Iteration two
+### Iteration 2: conflict is a part of life
 
 - Miembro 2, para traerse lo que hay en remoto, hace <code>git pull</code>
 - Miembro 2 se va a la rama *dev*: <code>git checkout dev</code>
-- Desde aquí, crea una nueva rama: 
+- DESDE DEV, crea una nueva rama: <code>git checkout -b navbar</code>
+- Crea una navbar en el archivo index.html
+- De mientras, Miembro 1 del equipo **se queda en dev** y genera a la vez una navbar en el archivo index.html. Cuando la acaba, comitea los cambios y los sube a la rama dev en remoto
+- Miembro 2, cuando acaba de hacer su navbar en la rama *navbar*, comitea los cambios en su rama
+- Miembro 2 se va a dev (<code>git checkout dev</code>), trae los cambios que ha hecho el otro compañero en remoto (<code>git pull origin dev</code>) y entonces procede a mergear su rama: <code>git merge navbar</code>
+- Como se han tocado las mismas líneas de código, debería haber conflicto. Solucionadlo y después comitear los cambios y subirlo a la rama dev.
+
+### Iteration 3: automation is cool
+
+- Generar un nuevo proyecto en el apartado de Github *Projects > Classic*
+- Crear algunas tareas y convertiras a issues
+- Asignar etiquetas (routes, views, style) a las tareas y asignar miembros del equipo a las tareas
+- Moved una de las tareas **cada uno** a la columna In progress
+- Hacer cambios en los archivos y probad de hacer commits que cierren las tareas de forma automática:
+```bash
+git status
+git add .
+git commit -m "closed #num featureName"
+git push origin branchName
+## Después de cada tarea, me voy a la rama dev a actualizarla
+git checkout dev
+## Miro si mi compi ha hecho algo mientras yo trabajaba
+git pull origin dev
+git merge branchName
+## Soluciono conflictos
+git status
+git commit -m "merges branchName into dev"
+git push origin dev
+```
 
 
 
